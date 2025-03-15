@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react"
-import { motion, useAnimation, MotionValue } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
 
 type CountUpProps = {
   end: number
@@ -12,10 +12,10 @@ type CountUpProps = {
   threshold?: number
 }
 
-// Define a custom interface for our animation values
-interface AnimationControls {
-  count: number
-}
+// // Define a custom interface for our animation values
+// interface AnimationControls {
+//   count: number
+// }
 
 export function CountUp({
   end,
@@ -39,7 +39,7 @@ export function CountUp({
           controls.start({
             count: end,
             transition: { duration, delay, ease: "easeOut" },
-          } as any)
+          } as unknown as CountUpProps)
         }
       },
       {
@@ -64,9 +64,9 @@ export function CountUp({
     <motion.div
       ref={ref}
       className={className}
-      initial={{ count: 0 } as any}
+      initial={{ count: 0 } as {count: number}}
       animate={controls}
-      onUpdate={(latest: any) => {
+      onUpdate={(latest) => {
         // Ensure we're working with a number
         const newCount = typeof latest.count === 'number' ? latest.count : 0;
         setCount(newCount)

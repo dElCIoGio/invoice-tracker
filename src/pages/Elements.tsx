@@ -67,7 +67,6 @@ import {
     MenubarShortcut,
     MenubarTrigger,
 } from "@/components/ui/menubar.tsx";
-import { Label } from "@/components/ui/label.tsx";
 import {
     Form,
     FormControl,
