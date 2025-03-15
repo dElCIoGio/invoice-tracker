@@ -9,10 +9,11 @@ import {
     SidebarMenuButton,
     SidebarTrigger, useSidebar, SidebarHeader, SidebarFooter,
 } from "@/components/ui/sidebar"
-import {BarChart, FileText, LayoutDashboard, Settings, Users} from "lucide-react";
-import {Link, useLocation} from "react-router";
+import {BarChart, FileText, LayoutDashboard, Send, Settings, Users} from "lucide-react";
+import {useLocation, useNavigate} from "react-router";
 import { Icon } from "@iconify/react";
 import {Button} from "@/components/ui/button.tsx";
+import {useIsMobile} from "@/hooks/use-mobile.ts";
 
 
 const navigation = [
@@ -32,6 +33,11 @@ const navigation = [
         icon: Users
     },
     {
+        name: "Follow-Ups & Reminders",
+        href: "follow-ups-and-reminders",
+        icon: Send
+    },
+    {
         name: "Reports",
         href: "reports",
         icon: BarChart
@@ -47,11 +53,19 @@ function DashboardSidebar(){
 
     const location = useLocation();
 
-    const {open} = useSidebar()
+    const {open, toggleSidebar} = useSidebar()
 
     const route = location.pathname.split("/")[2] || "";
 
+    const navigate = useNavigate()
 
+    const isMobile = useIsMobile();
+
+    function handlePageChange(href: string) {
+        if (isMobile)
+            toggleSidebar()
+        navigate(`/dashboard/${href}` + location.search, {replace: true})
+    }
     return(
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -77,10 +91,10 @@ function DashboardSidebar(){
               {navigation.map((item) => (
                 <SidebarMenuItem className={`${item.href == route? "bg-white border-[1.5px] flex justify-center rounded-full" : "rounded-full text-zinc-400"}`} key={item.name}>
                   <SidebarMenuButton className="rounded-full flex mx-auto" asChild>
-                    <Link to={item.href} className={`flex ${!open && "justify-center"} gap-2`}>
+                    <button onClick={() => handlePageChange(item.href)} className={`flex ${!open && "justify-center"} gap-2`}>
                       <item.icon className={`${!open ? "ml-2": "ml-0"} ${route == item.href && ""} transition-all duration-100 ease-in-out h-4 w-4`}/>
                       <span className={`${!open && ""}`}>{item.name}</span>
-                    </Link>
+                    </button>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

@@ -35,13 +35,8 @@ import {
 } from "lucide-react"
 import {useNavigate} from "react-router";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/components/ui/command.tsx";
+import {Client} from "@/schema/domain.ts";
 
-type Client = {
-    id: string,
-    name: string,
-    email: string,
-    address: string,
-}
 
 type DiscountType = "amount" | "percentage";
 

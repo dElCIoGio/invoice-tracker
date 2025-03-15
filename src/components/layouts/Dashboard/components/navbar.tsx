@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {useSidebar, SidebarTrigger} from "@/components/ui/sidebar.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
+import {useIsMobile} from "@/hooks/use-mobile.ts";
 
 
 
@@ -14,12 +15,15 @@ const DashboardNavbar = () => {
 
     const {open} = useSidebar()
 
+    const isMobile = useIsMobile();
+
+
     return (
         <nav className="sticky px-2 top-0 w-full py-3 flex items-center justify-between z-50 bg-white border-b h-17">
 
 
             <div className="flex items-center gap-2 transition-all duration-200 ease-in-out">
-                { !open &&
+                { (!open || isMobile) &&
                     <SidebarTrigger className="text-black"/>
                 }
 

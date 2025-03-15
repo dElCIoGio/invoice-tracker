@@ -38,12 +38,6 @@ export default function Dashboard() {
             </div>
           </CardHeader>
           <CardContent className="flex flex-row items-center justify-between">
-            <div className="hidden">
-              <div className="text-2xl font-bold">€320,845.20</div>
-              <p className="text-xs text-muted-foreground">
-                +8.5% from last month
-              </p>
-            </div>
             <div className="flex gap-2">
               <Button variant="secondary" size="sm">
                 <Filter className="mr-2 h-4 w-4"/>
