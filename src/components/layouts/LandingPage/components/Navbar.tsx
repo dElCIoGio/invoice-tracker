@@ -1,6 +1,8 @@
 import {Link} from "react-router";
 import {ChevronDown} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
+import { Icon } from "@iconify/react";
+
 
 function Navbar() {
     return (
@@ -16,7 +18,7 @@ function Navbar() {
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="h-6 w-6 text-teal-600"
+                            className="h-6 w-6 text-teal-600 hidden"
                         >
                             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
                             <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
@@ -25,7 +27,8 @@ function Navbar() {
                             <path d="M8 11h.01"/>
                             <path d="M8 16h.01"/>
                         </svg>
-                        Virelle
+                        <Icon icon="ic:round-bubble-chart" className="" width="28" height="28" />
+                        Invoicer
                     </Link>
                     <nav className="hidden md:flex gap-6">
                         <Link to="#" className="flex items-center gap-1 text-sm font-medium">

@@ -1,42 +1,44 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx"
 import { Button } from "@/components/ui/button.tsx"
-import { Plus, Send, Filter } from "lucide-react"
-import { BarChart } from "@/components/ui/bar-chart.tsx"
+import {
+  Plus,
+  Send,
+  Filter,
+  DollarSign,
+  AlertCircle,
+  CheckCircle2,
+  Bell,
+  Clock,
+  ArrowDownRight,
+  ArrowUpRight
+} from "lucide-react"
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
+import {Progress} from "@/components/ui/progress.tsx";
+import {InvoiceChart} from "@/components/dashboard/invoice-chart.tsx";
+import {RecentActivity} from "@/components/dashboard/recent-activity.tsx";
+import {InvoiceTable} from "@/components/dashboard/invoice-table.tsx";
+import {useState} from "react";
+import {Link} from "react-router";
+
 
 export default function Dashboard() {
-  const cashFlowData = {
-    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-    datasets: [
-      {
-        label: "Income",
-        data: [12378, 8234, 15678, 9876],
-        backgroundColor: "var(--chart-1)",
-      },
-      {
-        label: "Expenses",
-        data: [5788, 3456, 7890, 4567],
-        backgroundColor: "var(--chart-2)",
-      },
-    ],
-  }
 
+  const [activeTab, setActiveTab] = useState("overview")
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Overview</h1>
-          <p className="text-muted-foreground">Track your invoice statistics and cash flow</p>
-        </div>
 
-      </div>
 
       <div className="">
         <Card className="bg-zinc-100 border-zinc-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Outstanding</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 ">
+            {/*<CardTitle className="text-sm font-medium">Total Outstanding</CardTitle>*/}
+            <div>
+              <CardTitle className="text-3xl font-bold">Overview</CardTitle>
+              <p className="text-muted-foreground">Track your invoice statistics and cash flow</p>
+            </div>
           </CardHeader>
           <CardContent className="flex flex-row items-center justify-between">
-            <div>
+            <div className="hidden">
               <div className="text-2xl font-bold">€320,845.20</div>
               <p className="text-xs text-muted-foreground">
                 +8.5% from last month
@@ -51,119 +53,192 @@ export default function Dashboard() {
                 <Send className="mr-2 h-4 w-4"/>
                 Send Invoice
               </Button>
-              <Button size="sm">
-                <Plus className="mr-2 h-4 w-4"/>
-                New Invoice
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="hidden">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Income</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">€12,378.20</div>
-            <p className="text-xs text-muted-foreground">
-              +2.5% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="hidden">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Expenses</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">€5,788.21</div>
-            <p className="text-xs text-muted-foreground">
-              +1.5% from last month
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+              <Link to="invoices/new">
+                <Button size="sm">
+                  <Plus className="mr-2 h-4 w-4"/>
+                  New Invoice
+                </Button>
+              </Link>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Cash Flow</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <BarChart data={cashFlowData} />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[
-                {
-                  name: "Theo Lawrence",
-                  amount: "€500.00",
-                  date: "Aug 15, 2024",
-                  status: "Success",
-                  method: "Credit Card",
-                },
-                {
-                  name: "Amy March",
-                  amount: "€250.00",
-                  date: "May 04, 2024",
-                  status: "Pending",
-                  method: "Bank Transfer",
-                },
-              ].map((activity, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium leading-none">{activity.name}</p>
-                    <p className="text-sm text-muted-foreground">{activity.date}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium">{activity.amount}</p>
-                    <p className="text-sm text-muted-foreground">{activity.method}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Business Account</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">€8,672.20</div>
-            <p className="text-xs text-muted-foreground">
-              vs €7,553.54 Last Period
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Savings</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">€3,765.35</div>
-            <p className="text-xs text-muted-foreground">
-              vs €416.54 Last Period
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tax Reserve</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">€14,376.16</div>
-            <p className="text-xs text-muted-foreground">
-              vs €12,535.65 Last Period
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+      <Tabs defaultValue="overview" className="space-y-4" onValueChange={setActiveTab}>
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="outstanding">Outstanding</TabsTrigger>
+          <TabsTrigger value="overdue">Overdue</TabsTrigger>
+          <TabsTrigger value="paid">Paid</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            <Card className={`${activeTab === "outstanding" ? "border-primary" : ""}`}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Outstanding</CardTitle>
+                <DollarSign className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">$50,000</div>
+                <p className="text-xs text-muted-foreground">
+                    <span className="text-red-500 flex items-center gap-1">
+                      +12.5% <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  from last month
+                </p>
+                <Progress className="h-2 mt-2" value={65} />
+              </CardContent>
+            </Card>
+
+            <Card className={`${activeTab === "overdue" ? "border-primary" : ""}`}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Overdue Amount</CardTitle>
+                <AlertCircle className="h-4 w-4 text-red-500" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">$12,500</div>
+                <p className="text-xs text-muted-foreground">
+                    <span className="text-red-500 flex items-center gap-1">
+                      +8.1% <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  from last month
+                </p>
+                <Progress
+                    className="h-2 mt-2 bg-red-100"
+                    value={25}
+                />
+              </CardContent>
+            </Card>
+
+            <Card className={`${activeTab === "paid" ? "border-primary" : ""}`}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Paid This Month</CardTitle>
+                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">$8,000</div>
+                <p className="text-xs text-muted-foreground">
+                    <span className="text-emerald-500 flex items-center gap-1">
+                      +18.2% <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  from last month
+                </p>
+                <Progress
+                    className="h-2 mt-2 bg-emerald-100"
+                    value={40}
+                    // indicatorClassName="bg-emerald-500"
+                />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Response Rate</CardTitle>
+                <Bell className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">60%</div>
+                <p className="text-xs text-muted-foreground">
+                    <span className="text-emerald-500 flex items-center gap-1">
+                      +5.2% <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  from last month
+                </p>
+                <Progress className="h-2 mt-2" value={60} />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Avg. Collection Time</CardTitle>
+                <Clock className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">22 days</div>
+                <p className="text-xs text-muted-foreground">
+                    <span className="text-emerald-500 flex items-center gap-1">
+                      -3 days <ArrowDownRight className="h-4 w-4" />
+                    </span>
+                  from last month
+                </p>
+                <Progress className="h-2 mt-2" value={45} />
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Invoice Summary Graph */}
+          <div className="grid gap-4 md:grid-cols-7">
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Invoice Summary</CardTitle>
+                <CardDescription>Monthly comparison of issued vs. paid invoices</CardDescription>
+              </CardHeader>
+              <CardContent className="pl-2">
+                <InvoiceChart />
+              </CardContent>
+            </Card>
+
+            {/* Recent Activity & Alerts */}
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>Latest payments and upcoming due dates</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RecentActivity />
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Invoice Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Invoices</CardTitle>
+              <CardDescription>Manage your invoices and track their status</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <InvoiceTable />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="outstanding" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Outstanding Invoices</CardTitle>
+              <CardDescription>All invoices that are pending payment</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <InvoiceTable status="pending" />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="overdue" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Overdue Invoices</CardTitle>
+              <CardDescription>All invoices that are past their due date</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <InvoiceTable status="overdue" />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="paid" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Paid Invoices</CardTitle>
+              <CardDescription>All invoices that have been paid</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <InvoiceTable status="paid" />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 } 

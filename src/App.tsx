@@ -8,6 +8,9 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import LandingPageLayout from "@/components/layouts/LandingPage/LandingPageLayout.tsx";
+import InvoiceDetailsPage from "@/pages/dashboard/Invoice.tsx";
+import InvoicesPage from "@/pages/dashboard/Invoices.tsx";
+import NewInvoice from "@/pages/dashboard/new-invoice.tsx";
 
 export default function App() {
     return (
@@ -27,15 +30,16 @@ export default function App() {
                     <Route path="forgot-password" element={<ForgotPassword />} />
                 </Route>
 
-                <Route path="dashboard" element={<DashboardLayout/>}>
+                <Route path="/dashboard" element={<DashboardLayout/>}>
                     <Route index element={<Dashboard/>}/>
-                    <Route path="invoices" element={<Dashboard/>}/>
+                    <Route path="invoices">
+                        <Route index element={<InvoicesPage/>}/>
+                        <Route path="new" element={<NewInvoice/>}/>
+                        <Route path="invoice/:id" element={<InvoiceDetailsPage/>}/>
+                    </Route>
                     <Route path="clients" element={<Dashboard/>}/>
                     <Route path="reports" element={<Dashboard/>}/>
                     <Route path="settings" element={<Dashboard/>}/>
-
-
-
                 </Route>
 
 
