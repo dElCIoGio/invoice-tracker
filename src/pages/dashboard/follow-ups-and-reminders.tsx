@@ -47,6 +47,15 @@ import {
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import {toast} from "sonner";
 import EngagementHeatmap from "@/components/engagement-heatmap.tsx";
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+} from "@/components/ui/sheet"
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
+
 
 // TypeScript interfaces
 interface Client {
@@ -887,7 +896,7 @@ Virelle Inc.`
                                     </CardHeader>
                                     <CardContent>
                                         <DragDropContext onDragEnd={handleDragEnd}>
-                                            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-4">
                                                 {/* Scheduled Column */}
                                                 <Droppable droppableId="scheduled">
                                                     {(provided) => (
@@ -1472,135 +1481,87 @@ Virelle Inc.`
                 </Tabs>
             </div>
 
-            {/* Reminder Details Dialog */}
-            <Dialog open={showReminderDetails} onOpenChange={setShowReminderDetails}>
-                <DialogContent className="max-w-4xl">
-                    <DialogHeader>
-                        <DialogTitle>Reminder Details</DialogTitle>
-                        <DialogDescription>
+            {/* Reminder Details Sheet */}
+            <Sheet open={showReminderDetails} onOpenChange={setShowReminderDetails}>
+                <SheetContent className="min-w-[50%]">
+                    <SheetHeader>
+                        <SheetTitle>Reminder Details</SheetTitle>
+                        <SheetDescription>
                             View and manage reminder details for invoice {selectedReminder?.invoiceNumber}
-                        </DialogDescription>
-                    </DialogHeader>
+                        </SheetDescription>
+                    </SheetHeader>
+                    <ScrollArea className="p-4 h-full">
+                        {selectedReminder && (
+                            <div className="space-y-6">
+                                {/* Invoice & Client Details */}
+                                <div className=" space-y-4">
+                                    <div className=" space-y-4">
+                                        <div className="flex items-center gap-4">
+                                            <Avatar className="h-16 w-16">
+                                                <AvatarFallback>{selectedReminder.client.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                            </Avatar>
+                                            <div>
+                                                <h2 className="text-2xl font-bold">{selectedReminder.invoiceNumber}</h2>
+                                                <p className="text-muted-foreground">{selectedReminder.client.name}</p>
+                                            </div>
+                                        </div>
 
-                    {selectedReminder && (
-                        <div className="space-y-6">
-                            {/* Invoice & Client Details */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="md:col-span-2 space-y-4">
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="h-16 w-16">
-                                            <AvatarFallback>{selectedReminder.client.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-                                        </Avatar>
-                                        <div>
-                                            <h2 className="text-2xl font-bold">{selectedReminder.invoiceNumber}</h2>
-                                            <p className="text-muted-foreground">{selectedReminder.client.name}</p>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <p className="text-sm font-medium text-muted-foreground">Contact Person</p>
+                                                <p>{selectedReminder.client.contactPerson}</p>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <p className="text-sm font-medium text-muted-foreground">Email</p>
+                                                <p>{selectedReminder.client.email}</p>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <p className="text-sm font-medium text-muted-foreground">Due Date</p>
+                                                <p>{formatDate(selectedReminder.dueDate)}</p>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <p className="text-sm font-medium text-muted-foreground">Amount</p>
+                                                <p className="font-medium">{formatCurrency(selectedReminder.amount)}</p>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <p className="text-sm font-medium text-muted-foreground">Contact Person</p>
-                                            <p>{selectedReminder.client.contactPerson}</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-sm font-medium text-muted-foreground">Email</p>
-                                            <p>{selectedReminder.client.email}</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-sm font-medium text-muted-foreground">Due Date</p>
-                                            <p>{formatDate(selectedReminder.dueDate)}</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-sm font-medium text-muted-foreground">Amount</p>
-                                            <p className="font-medium">{formatCurrency(selectedReminder.amount)}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4">
-                                    <div className="rounded-lg border p-4">
-                                        <h3 className="font-medium mb-2">Status</h3>
-                                        <div className="space-y-2">
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-sm text-muted-foreground">Current Status:</span>
-                                                <Badge variant="outline" className={getStatusInfo(selectedReminder.status).color}>
-                                                    {getStatusInfo(selectedReminder.status).icon}
-                                                    <span className="ml-1">{getStatusInfo(selectedReminder.status).label}</span>
-                                                </Badge>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="text-sm text-muted-foreground">Last Reminder:</span>
-                                                <span className="font-medium">{getDaysAgo(selectedReminder.lastReminderSent)}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="text-sm text-muted-foreground">Days Overdue:</span>
-                                                <span
-                                                    className={`font-medium ${selectedReminder.daysOverdue > 0 ? "text-red-500" : "text-green-500"}`}
-                                                >
+                                    <div className="space-y-4">
+                                        <Card className="p-4">
+                                            <h3 className="font-medium mb-2">Status</h3>
+                                            <div className="space-y-2">
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-sm text-muted-foreground">Current Status:</span>
+                                                    <Badge variant="outline" className={getStatusInfo(selectedReminder.status).color}>
+                                                        {getStatusInfo(selectedReminder.status).icon}
+                                                        <span className="ml-1">{getStatusInfo(selectedReminder.status).label}</span>
+                                                    </Badge>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="text-sm text-muted-foreground">Last Reminder:</span>
+                                                    <span className="font-medium">{getDaysAgo(selectedReminder.lastReminderSent)}</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="text-sm text-muted-foreground">Days Overdue:</span>
+                                                    <span
+                                                        className={`font-medium ${selectedReminder.daysOverdue > 0 ? "text-red-500" : "text-green-500"}`}
+                                                    >
                           {selectedReminder.daysOverdue > 0 ? `${selectedReminder.daysOverdue} days` : "None"}
                         </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </Card>
 
-                                    <div className="flex flex-col gap-2">
-                                        {selectedReminder.status !== "paid" && selectedReminder.status !== "escalated" && (
-                                            <Button onClick={() => handleSendReminder(selectedReminder)}>
-                                                <Send className="mr-2 h-4 w-4" />
-                                                Send Reminder
-                                            </Button>
-                                        )}
+                                        <div className="flex flex-col gap-2">
+                                            {selectedReminder.status !== "paid" && selectedReminder.status !== "escalated" && (
+                                                <Button onClick={() => handleSendReminder(selectedReminder)}>
+                                                    <Send className="mr-2 h-4 w-4" />
+                                                    Send Reminder
+                                                </Button>
+                                            )}
 
-                                        {selectedReminder.status !== "paid" && (
-                                            <Button variant="outline" onClick={() => handleNegotiatePayment(selectedReminder)}>
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    className="mr-2 h-4 w-4"
-                                                >
-                                                    <path d="M15 21v-4a2 2 0 0 1 2-2h4" />
-                                                    <path d="M7 4v2a3 3 0 0 0 3 2h0a3 3 0 0 1 3 3v1" />
-                                                    <path d="m21 3-6 6" />
-                                                    <path d="m3 21 6-6" />
-                                                </svg>
-                                                Negotiate Payment
-                                            </Button>
-                                        )}
-
-                                        {(selectedReminder.status === "sent" || selectedReminder.status === "scheduled") && (
-                                            <Button variant="outline" onClick={() => handleEscalate(selectedReminder)}>
-                                                <AlertTriangle className="mr-2 h-4 w-4" />
-                                                Escalate to Final Notice
-                                            </Button>
-                                        )}
-
-                                        {selectedReminder.status !== "paid" && (
-                                            <Button variant="outline" onClick={() => handleMarkAsPaid(selectedReminder)}>
-                                                <CheckCheck className="mr-2 h-4 w-4" />
-                                                Mark as Paid
-                                            </Button>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <Separator />
-
-                            {/* Follow-Up History */}
-                            <div className="space-y-4">
-                                <h3 className="text-lg font-medium">Reminder History</h3>
-                                <div className="space-y-4">
-                                    {selectedReminder.history.map((historyItem) => (
-                                        <div key={historyItem.id} className="flex items-start gap-4">
-                                            <div className="rounded-full p-2 bg-gray-100">
-                                                {historyItem.type === "email" ? (
-                                                    <Mail className="h-4 w-4 text-blue-500" />
-                                                ) : historyItem.type === "phone" ? (
+                                            {selectedReminder.status !== "paid" && (
+                                                <Button variant="outline" onClick={() => handleNegotiatePayment(selectedReminder)}>
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 24 24"
@@ -1609,210 +1570,266 @@ Virelle Inc.`
                                                         strokeWidth="2"
                                                         strokeLinecap="round"
                                                         strokeLinejoin="round"
-                                                        className="h-4 w-4 text-green-500"
+                                                        className="mr-2 h-4 w-4"
                                                     >
-                                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                                        <path d="M15 21v-4a2 2 0 0 1 2-2h4" />
+                                                        <path d="M7 4v2a3 3 0 0 0 3 2h0a3 3 0 0 1 3 3v1" />
+                                                        <path d="m21 3-6 6" />
+                                                        <path d="m3 21 6-6" />
                                                     </svg>
-                                                ) : historyItem.type === "payment" ? (
-                                                    <DollarSign className="h-4 w-4 text-emerald-500" />
+                                                    Negotiate Payment
+                                                </Button>
+                                            )}
+
+                                            {(selectedReminder.status === "sent" || selectedReminder.status === "scheduled") && (
+                                                <Button variant="outline" onClick={() => handleEscalate(selectedReminder)}>
+                                                    <AlertTriangle className="mr-2 h-4 w-4" />
+                                                    Escalate to Final Notice
+                                                </Button>
+                                            )}
+
+                                            {selectedReminder.status !== "paid" && (
+                                                <Button variant="outline" onClick={() => handleMarkAsPaid(selectedReminder)}>
+                                                    <CheckCheck className="mr-2 h-4 w-4" />
+                                                    Mark as Paid
+                                                </Button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <Separator />
+
+                                {/* Follow-Up History */}
+                                <div className="space-y-4">
+                                    <h3 className="text-lg font-medium">Reminder History</h3>
+                                    <div className="space-y-4">
+                                        {selectedReminder.history.map((historyItem) => (
+                                            <div key={historyItem.id} className="flex items-start gap-4">
+                                                <div className="rounded-full p-2 bg-gray-100">
+                                                    {historyItem.type === "email" ? (
+                                                        <Mail className="h-4 w-4 text-blue-500" />
+                                                    ) : historyItem.type === "phone" ? (
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="2"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            className="h-4 w-4 text-green-500"
+                                                        >
+                                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                                        </svg>
+                                                    ) : historyItem.type === "payment" ? (
+                                                        <DollarSign className="h-4 w-4 text-emerald-500" />
+                                                    ) : (
+                                                        <MessageSquare className="h-4 w-4 text-purple-500" />
+                                                    )}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="flex justify-between">
+                                                        <p className="font-medium">{historyItem.message}</p>
+                                                        <Badge
+                                                            variant="outline"
+                                                            className={
+                                                                historyItem.status === "opened"
+                                                                    ? "bg-blue-50 text-blue-700"
+                                                                    : historyItem.status === "responded"
+                                                                        ? "bg-green-50 text-green-700"
+                                                                        : historyItem.status === "completed"
+                                                                            ? "bg-emerald-50 text-emerald-700"
+                                                                            : "bg-gray-50 text-gray-700"
+                                                            }
+                                                        >
+                                                            {historyItem.status === "opened"
+                                                                ? "Opened"
+                                                                : historyItem.status === "responded"
+                                                                    ? "Responded"
+                                                                    : historyItem.status === "completed"
+                                                                        ? "Completed"
+                                                                        : historyItem.status === "not_opened"
+                                                                            ? "Not Opened"
+                                                                            : "No Response"}
+                                                        </Badge>
+                                                    </div>
+                                                    <p className="text-sm text-muted-foreground">{formatDate(historyItem.date)}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Client Engagement */}
+                                <div className="space-y-4">
+                                    <h3 className="text-lg font-medium">Client Engagement</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div
+                                            className={`rounded-lg border p-4 ${selectedReminder.engagement.emailOpened ? "bg-blue-50 border-blue-200" : "bg-gray-50"}`}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <h4 className="font-medium">Email Opened</h4>
+                                                {selectedReminder.engagement.emailOpened ? (
+                                                    <CheckCircle className="h-5 w-5 text-blue-500" />
                                                 ) : (
-                                                    <MessageSquare className="h-4 w-4 text-purple-500" />
+                                                    <X className="h-5 w-5 text-gray-400" />
                                                 )}
                                             </div>
-                                            <div className="flex-1">
-                                                <div className="flex justify-between">
-                                                    <p className="font-medium">{historyItem.message}</p>
-                                                    <Badge
-                                                        variant="outline"
-                                                        className={
-                                                            historyItem.status === "opened"
-                                                                ? "bg-blue-50 text-blue-700"
-                                                                : historyItem.status === "responded"
-                                                                    ? "bg-green-50 text-green-700"
-                                                                    : historyItem.status === "completed"
-                                                                        ? "bg-emerald-50 text-emerald-700"
-                                                                        : "bg-gray-50 text-gray-700"
-                                                        }
-                                                    >
-                                                        {historyItem.status === "opened"
-                                                            ? "Opened"
-                                                            : historyItem.status === "responded"
-                                                                ? "Responded"
-                                                                : historyItem.status === "completed"
-                                                                    ? "Completed"
-                                                                    : historyItem.status === "not_opened"
-                                                                        ? "Not Opened"
-                                                                        : "No Response"}
-                                                    </Badge>
-                                                </div>
-                                                <p className="text-sm text-muted-foreground">{formatDate(historyItem.date)}</p>
+                                            <p className="text-sm text-muted-foreground mt-2">
+                                                {selectedReminder.engagement.emailOpened
+                                                    ? "Client has opened the reminder emails"
+                                                    : "Client has not opened any reminder emails"}
+                                            </p>
+                                        </div>
+
+                                        <div
+                                            className={`rounded-lg border p-4 ${selectedReminder.engagement.replied ? "bg-green-50 border-green-200" : "bg-gray-50"}`}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <h4 className="font-medium">Replied</h4>
+                                                {selectedReminder.engagement.replied ? (
+                                                    <CheckCircle className="h-5 w-5 text-green-500" />
+                                                ) : (
+                                                    <X className="h-5 w-5 text-gray-400" />
+                                                )}
                                             </div>
+                                            <p className="text-sm text-muted-foreground mt-2">
+                                                {selectedReminder.engagement.replied
+                                                    ? "Client has replied to reminders"
+                                                    : "Client has not replied to any reminders"}
+                                            </p>
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
 
-                            {/* Client Engagement */}
-                            <div className="space-y-4">
-                                <h3 className="text-lg font-medium">Client Engagement</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div
-                                        className={`rounded-lg border p-4 ${selectedReminder.engagement.emailOpened ? "bg-blue-50 border-blue-200" : "bg-gray-50"}`}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <h4 className="font-medium">Email Opened</h4>
-                                            {selectedReminder.engagement.emailOpened ? (
-                                                <CheckCircle className="h-5 w-5 text-blue-500" />
-                                            ) : (
-                                                <X className="h-5 w-5 text-gray-400" />
-                                            )}
+                                        <div
+                                            className={`rounded-lg border p-4 ${selectedReminder.engagement.ignored ? "bg-red-50 border-red-200" : "bg-gray-50"}`}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <h4 className="font-medium">Ignored</h4>
+                                                {selectedReminder.engagement.ignored ? (
+                                                    <AlertCircle className="h-5 w-5 text-red-500" />
+                                                ) : (
+                                                    <X className="h-5 w-5 text-gray-400" />
+                                                )}
+                                            </div>
+                                            <p className="text-sm text-muted-foreground mt-2">
+                                                {selectedReminder.engagement.ignored
+                                                    ? "Client has ignored multiple reminders"
+                                                    : "Client has not ignored reminders"}
+                                            </p>
                                         </div>
-                                        <p className="text-sm text-muted-foreground mt-2">
-                                            {selectedReminder.engagement.emailOpened
-                                                ? "Client has opened the reminder emails"
-                                                : "Client has not opened any reminder emails"}
-                                        </p>
-                                    </div>
-
-                                    <div
-                                        className={`rounded-lg border p-4 ${selectedReminder.engagement.replied ? "bg-green-50 border-green-200" : "bg-gray-50"}`}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <h4 className="font-medium">Replied</h4>
-                                            {selectedReminder.engagement.replied ? (
-                                                <CheckCircle className="h-5 w-5 text-green-500" />
-                                            ) : (
-                                                <X className="h-5 w-5 text-gray-400" />
-                                            )}
-                                        </div>
-                                        <p className="text-sm text-muted-foreground mt-2">
-                                            {selectedReminder.engagement.replied
-                                                ? "Client has replied to reminders"
-                                                : "Client has not replied to any reminders"}
-                                        </p>
-                                    </div>
-
-                                    <div
-                                        className={`rounded-lg border p-4 ${selectedReminder.engagement.ignored ? "bg-red-50 border-red-200" : "bg-gray-50"}`}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <h4 className="font-medium">Ignored</h4>
-                                            {selectedReminder.engagement.ignored ? (
-                                                <AlertCircle className="h-5 w-5 text-red-500" />
-                                            ) : (
-                                                <X className="h-5 w-5 text-gray-400" />
-                                            )}
-                                        </div>
-                                        <p className="text-sm text-muted-foreground mt-2">
-                                            {selectedReminder.engagement.ignored
-                                                ? "Client has ignored multiple reminders"
-                                                : "Client has not ignored reminders"}
-                                        </p>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* AI-Powered Suggested Next Action */}
-                            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <BarChart className="h-5 w-5 text-blue-500" />
-                                    <h3 className="font-medium text-blue-700">AI-Powered Suggested Next Action</h3>
+                                {/* AI-Powered Suggested Next Action */}
+                                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <BarChart className="h-5 w-5 text-blue-500" />
+                                        <h3 className="font-medium text-blue-700">AI-Powered Suggested Next Action</h3>
+                                    </div>
+                                    <p className="text-sm text-blue-700">{selectedReminder.suggestedAction}</p>
                                 </div>
-                                <p className="text-sm text-blue-700">{selectedReminder.suggestedAction}</p>
                             </div>
-                        </div>
-                    )}
-                </DialogContent>
-            </Dialog>
+                        )}
+                    </ScrollArea>
+
+                </SheetContent>
+            </Sheet>
 
             {/* Send Reminder Dialog */}
-            <Dialog open={showSendReminder} onOpenChange={setShowSendReminder}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Send Reminder</DialogTitle>
-                        <DialogDescription>
+            <Sheet open={showSendReminder} onOpenChange={setShowSendReminder}>
+                <SheetContent className="min-w-[50%]">
+                    <SheetHeader>
+                        <SheetTitle>Send Reminder</SheetTitle>
+                        <SheetDescription>
                             Send a reminder to {selectedReminder?.client.name} for invoice {selectedReminder?.invoiceNumber}
-                        </DialogDescription>
-                    </DialogHeader>
+                        </SheetDescription>
+                    </SheetHeader>
 
-                    {selectedReminder && (
-                        <div className="space-y-4 py-4">
-                            <div className="space-y-2">
-                                <Label>Reminder Channel</Label>
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant={reminderForm.channel === "email" ? "default" : "outline"}
-                                        className="flex-1"
-                                        onClick={() => setReminderForm({ ...reminderForm, channel: "email" })}
+                    <ScrollArea className="h-full p-4">
+                        {selectedReminder && (
+                            <div className="space-y-4 py-4">
+                                <div className="space-y-2">
+                                    <Label>Reminder Channel</Label>
+                                    <div className="flex gap-2">
+                                        <Button
+                                            variant={reminderForm.channel === "email" ? "default" : "outline"}
+                                            className="flex-1"
+                                            onClick={() => setReminderForm({ ...reminderForm, channel: "email" })}
+                                        >
+                                            <Mail className="mr-2 h-4 w-4" />
+                                            Email
+                                        </Button>
+                                        <Button
+                                            variant={reminderForm.channel === "sms" ? "default" : "outline"}
+                                            className="flex-1"
+                                            onClick={() => setReminderForm({ ...reminderForm, channel: "sms" })}
+                                        >
+                                            <MessageSquare className="mr-2 h-4 w-4" />
+                                            SMS
+                                        </Button>
+                                        <Button
+                                            variant={reminderForm.channel === "whatsapp" ? "default" : "outline"}
+                                            className="flex-1"
+                                            onClick={() => setReminderForm({ ...reminderForm, channel: "whatsapp" })}
+                                        >
+                                            <MessageSquare className="mr-2 h-4 w-4" />
+                                            WhatsApp
+                                        </Button>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="template">Template</Label>
+                                    <Select
+                                        value={reminderForm.template}
+                                        onValueChange={(value) => setReminderForm({ ...reminderForm, template: value })}
                                     >
-                                        <Mail className="mr-2 h-4 w-4" />
-                                        Email
-                                    </Button>
-                                    <Button
-                                        variant={reminderForm.channel === "sms" ? "default" : "outline"}
-                                        className="flex-1"
-                                        onClick={() => setReminderForm({ ...reminderForm, channel: "sms" })}
-                                    >
-                                        <MessageSquare className="mr-2 h-4 w-4" />
-                                        SMS
-                                    </Button>
-                                    <Button
-                                        variant={reminderForm.channel === "whatsapp" ? "default" : "outline"}
-                                        className="flex-1"
-                                        onClick={() => setReminderForm({ ...reminderForm, channel: "whatsapp" })}
-                                    >
-                                        <MessageSquare className="mr-2 h-4 w-4" />
-                                        WhatsApp
-                                    </Button>
+                                        <SelectTrigger id="template">
+                                            <SelectValue placeholder="Select a template" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="standard">Standard Reminder</SelectItem>
+                                            <SelectItem value="friendly">Friendly Reminder</SelectItem>
+                                            <SelectItem value="urgent">Urgent Reminder</SelectItem>
+                                            <SelectItem value="custom">Custom Message</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="message">Message</Label>
+                                    <Textarea
+                                        id="message"
+                                        value={reminderForm.message}
+                                        onChange={(e) => setReminderForm({ ...reminderForm, message: e.target.value })}
+                                        rows={10}
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                        Available variables: <span className="font-semibold">
+                                        {"{{client}}, {{invoice_number}}, {{amount}}, {{due_date}}"}
+                                    </span>
+                                    </p>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label>Schedule</Label>
+                                    <RadioGroup defaultValue="now">
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="now" id="now" />
+                                            <Label htmlFor="now">Send now</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="later" id="later" />
+                                            <Label htmlFor="later">Schedule for later</Label>
+                                        </div>
+                                    </RadioGroup>
                                 </div>
                             </div>
+                        )}
+                    </ScrollArea>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="template">Template</Label>
-                                <Select
-                                    value={reminderForm.template}
-                                    onValueChange={(value) => setReminderForm({ ...reminderForm, template: value })}
-                                >
-                                    <SelectTrigger id="template">
-                                        <SelectValue placeholder="Select a template" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="standard">Standard Reminder</SelectItem>
-                                        <SelectItem value="friendly">Friendly Reminder</SelectItem>
-                                        <SelectItem value="urgent">Urgent Reminder</SelectItem>
-                                        <SelectItem value="custom">Custom Message</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="message">Message</Label>
-                                <Textarea
-                                    id="message"
-                                    value={reminderForm.message}
-                                    onChange={(e) => setReminderForm({ ...reminderForm, message: e.target.value })}
-                                    rows={10}
-                                />
-                                <p className="text-xs text-muted-foreground">
-                                    Available variables: {"{{client}}, {{invoice_number}}, {{amount}}, {{due_date}}"}
-                                </p>
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label>Schedule</Label>
-                                <RadioGroup defaultValue="now">
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="now" id="now" />
-                                        <Label htmlFor="now">Send now</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="later" id="later" />
-                                        <Label htmlFor="later">Schedule for later</Label>
-                                    </div>
-                                </RadioGroup>
-                            </div>
-                        </div>
-                    )}
 
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setShowSendReminder(false)}>
@@ -1820,8 +1837,8 @@ Virelle Inc.`
                         </Button>
                         <Button onClick={handleSendReminderSubmit}>Send Reminder</Button>
                     </DialogFooter>
-                </DialogContent>
-            </Dialog>
+                </SheetContent>
+            </Sheet>
 
             {/* Escalate Dialog */}
             <Dialog open={showEscalateDialog} onOpenChange={setShowEscalateDialog}>

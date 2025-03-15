@@ -348,24 +348,24 @@ export default function InvoicesTable({ filter }: { filter?: string | null }) {
                 return (
                     <div className="flex items-center justify-end gap-2">
                         {invoice.status !== "paid" && invoice.status !== "draft" && (
-                            <Button variant="ghost" size="icon" onClick={() => handleSendReminder(invoice)} title="Send Reminder">
+                            <Button className="hidden" variant="ghost" size="icon" onClick={() => handleSendReminder(invoice)} title="Send Reminder">
                                 <Send className="h-4 w-4" />
                             </Button>
                         )}
 
                         {invoice.status === "overdue" && (
-                            <Button variant="ghost" size="icon" onClick={() => handleEscalate(invoice)} title="Escalate">
+                            <Button className="hidden" variant="ghost" size="icon" onClick={() => handleEscalate(invoice)} title="Escalate">
                                 <AlertCircle className="h-4 w-4 text-red-500" />
                             </Button>
                         )}
 
                         {invoice.status !== "paid" && invoice.status !== "draft" && (
-                            <Button variant="ghost" size="icon" onClick={() => handleMarkAsPaid(invoice)} title="Mark as Paid">
+                            <Button className="hidden" variant="ghost" size="icon" onClick={() => handleMarkAsPaid(invoice)} title="Mark as Paid">
                                 <CheckCircle className="h-4 w-4 text-green-500" />
                             </Button>
                         )}
 
-                        <Link to={`invoice/${invoice.id}`}>
+                        <Link to={`invoice/${invoice.id}`} className="hidden">
                             <Button variant="ghost" size="icon" title="View Details">
                                 <Eye className="h-4 w-4" />
                             </Button>
