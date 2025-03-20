@@ -95,7 +95,7 @@ export default function SettingsPage() {
 
     // General settings state
     const [generalSettings, setGeneralSettings] = useState({
-        businessName: "Virelle Inc.",
+        businessName: "Unicollector Inc.",
         businessLogo: "/placeholder.svg?height=100&width=100",
         defaultCurrency: "USD",
         invoiceNumberFormat: "date",
@@ -132,7 +132,7 @@ export default function SettingsPage() {
             paypal: false,
         },
         bankDetails: {
-            accountName: "Virelle Inc.",
+            accountName: "Unicollector Inc.",
             accountNumber: "1234567890",
             routingNumber: "987654321",
             bankName: "First National Bank",

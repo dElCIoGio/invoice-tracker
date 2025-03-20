@@ -378,7 +378,7 @@ export default function InvoiceDetailsPage() {
                                         </div>
                                         <div>
                                             <p className="text-xs font-medium text-muted-foreground">Account Name</p>
-                                            <p className="text-sm">Virelle Inc.</p>
+                                            <p className="text-sm">Unicollector Inc.</p>
                                         </div>
                                         <div>
                                             <p className="text-xs font-medium text-muted-foreground">Account Number</p>
@@ -765,7 +765,7 @@ Thank you for your business!
 
 Best regards,
 Your Name
-Virelle Inc.`}
+Unicollector Inc.`}
                             />
                         </div>
                         <div className="space-y-2">

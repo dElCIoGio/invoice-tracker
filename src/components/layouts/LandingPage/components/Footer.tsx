@@ -25,7 +25,7 @@ function Footer() {
                                 <path d="M8 11h.01"/>
                                 <path d="M8 16h.01"/>
                             </svg>
-                            Virelle
+                            Unicollector
                         </Link>
                         <p className="text-sm text-gray-500">
                             Streamline your invoicing process with automated reminders and tracking solutions.
@@ -171,7 +171,7 @@ function Footer() {
                     </div>
                 </div>
                 <div className="mt-8 border-t pt-8 flex flex-col md:flex-row justify-between items-center">
-                    <p className="text-xs text-gray-500">© 2025 Virelle. All rights reserved.</p>
+                    <p className="text-xs text-gray-500">© 2025 Unicollector. All rights reserved.</p>
                     <div className="flex space-x-4 mt-4 md:mt-0">
                         <Link
                             to="#"

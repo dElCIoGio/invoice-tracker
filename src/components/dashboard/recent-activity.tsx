@@ -24,7 +24,13 @@ export function RecentActivity() {
                         </Avatar>
                         <div className="flex-1 space-y-1">
                             <div className="flex items-center justify-between">
-                                <p className="text-sm font-medium">Acme Inc paid invoice #INV-001</p>
+                                <div className="flex items-center text-sm space-x-2">
+                                    <p className="text-sm font-medium">Acme Inc paid invoice </p>
+                                    <span className="text-sm text-black font-medium">
+                                        #INV-001
+                                    </span>
+                                </div>
+
                                 <Badge variant="outline" className="bg-green-50 text-green-700 hover:bg-green-50">
                                     Paid
                                 </Badge>

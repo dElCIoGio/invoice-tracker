@@ -395,7 +395,7 @@ Please let us know if you have any questions or if there's anything we can assis
 Thank you for your business!
 
 Best regards,
-Virelle Inc.`
+Unicollector Inc.`
         } else if (reminder.status === "sent") {
             defaultMessage = `Dear ${reminder.client.contactPerson},
 
@@ -406,7 +406,7 @@ Please process the payment as soon as possible to avoid any late fees.
 If you have already made the payment, please disregard this reminder.
 
 Best regards,
-Virelle Inc.`
+Unicollector Inc.`
         }
 
         setReminderForm({
@@ -1486,7 +1486,7 @@ Virelle Inc.`
                 <SheetContent className="min-w-[50%]">
                     <SheetHeader>
                         <SheetTitle>Reminder Details</SheetTitle>
-                        <SheetDescription>
+                        <SheetDescription className="text-zinc-400">
                             View and manage reminder details for invoice {selectedReminder?.invoiceNumber}
                         </SheetDescription>
                     </SheetHeader>
@@ -1502,47 +1502,47 @@ Virelle Inc.`
                                             </Avatar>
                                             <div>
                                                 <h2 className="text-2xl font-bold">{selectedReminder.invoiceNumber}</h2>
-                                                <p className="text-muted-foreground">{selectedReminder.client.name}</p>
+                                                <p className="text-black">{selectedReminder.client.name}</p>
                                             </div>
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <p className="text-sm font-medium text-muted-foreground">Contact Person</p>
-                                                <p>{selectedReminder.client.contactPerson}</p>
+                                                <p className="text-black">{selectedReminder.client.contactPerson}</p>
                                             </div>
                                             <div className="space-y-2">
                                                 <p className="text-sm font-medium text-muted-foreground">Email</p>
-                                                <p>{selectedReminder.client.email}</p>
+                                                <p className="text-black">{selectedReminder.client.email}</p>
                                             </div>
                                             <div className="space-y-2">
                                                 <p className="text-sm font-medium text-muted-foreground">Due Date</p>
-                                                <p>{formatDate(selectedReminder.dueDate)}</p>
+                                                <p className="text-black">{formatDate(selectedReminder.dueDate)}</p>
                                             </div>
                                             <div className="space-y-2">
                                                 <p className="text-sm font-medium text-muted-foreground">Amount</p>
-                                                <p className="font-medium">{formatCurrency(selectedReminder.amount)}</p>
+                                                <p className="font-medium text-black">{formatCurrency(selectedReminder.amount)}</p>
                                             </div>
                                         </div>
                                     </div>
-
+                                    <Separator className="my-8"/>
                                     <div className="space-y-4">
-                                        <Card className="p-4">
+                                        <div className="">
                                             <h3 className="font-medium mb-2">Status</h3>
                                             <div className="space-y-2">
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-sm text-muted-foreground">Current Status:</span>
+                                                    <span className="text-sm text-black">Current Status:</span>
                                                     <Badge variant="outline" className={getStatusInfo(selectedReminder.status).color}>
                                                         {getStatusInfo(selectedReminder.status).icon}
                                                         <span className="ml-1">{getStatusInfo(selectedReminder.status).label}</span>
                                                     </Badge>
                                                 </div>
                                                 <div className="flex justify-between">
-                                                    <span className="text-sm text-muted-foreground">Last Reminder:</span>
+                                                    <span className="text-sm text-black">Last Reminder:</span>
                                                     <span className="font-medium">{getDaysAgo(selectedReminder.lastReminderSent)}</span>
                                                 </div>
                                                 <div className="flex justify-between">
-                                                    <span className="text-sm text-muted-foreground">Days Overdue:</span>
+                                                    <span className="text-sm text-black">Days Overdue:</span>
                                                     <span
                                                         className={`font-medium ${selectedReminder.daysOverdue > 0 ? "text-red-500" : "text-green-500"}`}
                                                     >
@@ -1550,7 +1550,7 @@ Virelle Inc.`
                         </span>
                                                 </div>
                                             </div>
-                                        </Card>
+                                        </div>
 
                                         <div className="flex flex-col gap-2">
                                             {selectedReminder.status !== "paid" && selectedReminder.status !== "escalated" && (
@@ -1654,7 +1654,7 @@ Virelle Inc.`
                                                                             : "No Response"}
                                                         </Badge>
                                                     </div>
-                                                    <p className="text-sm text-muted-foreground">{formatDate(historyItem.date)}</p>
+                                                    <p className="text-sm text-black">{formatDate(historyItem.date)}</p>
                                                 </div>
                                             </div>
                                         ))}
@@ -1676,7 +1676,7 @@ Virelle Inc.`
                                                     <X className="h-5 w-5 text-gray-400" />
                                                 )}
                                             </div>
-                                            <p className="text-sm text-muted-foreground mt-2">
+                                            <p className="text-sm text-black mt-2">
                                                 {selectedReminder.engagement.emailOpened
                                                     ? "Client has opened the reminder emails"
                                                     : "Client has not opened any reminder emails"}
@@ -1694,7 +1694,7 @@ Virelle Inc.`
                                                     <X className="h-5 w-5 text-gray-400" />
                                                 )}
                                             </div>
-                                            <p className="text-sm text-muted-foreground mt-2">
+                                            <p className="text-sm text-black mt-2">
                                                 {selectedReminder.engagement.replied
                                                     ? "Client has replied to reminders"
                                                     : "Client has not replied to any reminders"}
@@ -1712,7 +1712,7 @@ Virelle Inc.`
                                                     <X className="h-5 w-5 text-gray-400" />
                                                 )}
                                             </div>
-                                            <p className="text-sm text-muted-foreground mt-2">
+                                            <p className="text-sm text-black mt-2">
                                                 {selectedReminder.engagement.ignored
                                                     ? "Client has ignored multiple reminders"
                                                     : "Client has not ignored reminders"}
@@ -1962,7 +1962,7 @@ Please let us know which option works best for you, and we can proceed according
 Thank you for your business!
 
 Best regards,
-Virelle Inc.`}
+Unicollector Inc.`}
                                     rows={8}
                                 />
                             </div>

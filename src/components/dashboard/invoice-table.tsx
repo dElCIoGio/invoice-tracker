@@ -276,10 +276,10 @@ export const columns: ColumnDef<Invoice>[] = [
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem>View details</DropdownMenuItem>
-                            <DropdownMenuItem>Send reminder</DropdownMenuItem>
+                            <DropdownMenuItem className="text-black">View details</DropdownMenuItem>
+                            <DropdownMenuItem className="text-black">Send reminder</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Mark as paid</DropdownMenuItem>
+                            <DropdownMenuItem className="text-black">Mark as paid</DropdownMenuItem>
                             {invoice.status === "overdue" && <DropdownMenuItem className="text-red-600">Escalate</DropdownMenuItem>}
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -443,7 +443,7 @@ export function InvoiceTable({ status }: { status?: string }) {
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
+                <div className="flex-1 text-sm text-zinc-500">
                     {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
                     selected.
                 </div>

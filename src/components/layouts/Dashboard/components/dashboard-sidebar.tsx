@@ -75,7 +75,7 @@ function DashboardSidebar(){
                                 <Icon icon="ic:round-bubble-chart" className="text-white" width="28" height="28" />
                             </div>
                             <span className={`${open ? "opacity-100": "opacity-0"} transition-opacity duration-300 ease-in-out`}>
-                                Invoicer
+                                Unicollector
                             </span>
                         </div>
                         <SidebarTrigger  className={`${open ? "": "hidden"}`} />

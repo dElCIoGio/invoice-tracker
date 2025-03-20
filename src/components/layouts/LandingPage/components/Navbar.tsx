@@ -28,7 +28,7 @@ function Navbar() {
                             <path d="M8 16h.01"/>
                         </svg>
                         <Icon icon="ic:round-bubble-chart" className="" width="28" height="28" />
-                        Invoicer
+                        Unicollector
                     </Link>
                     <nav className="hidden md:flex gap-6">
                         <Link to="#" className="flex items-center gap-1 text-sm font-medium">

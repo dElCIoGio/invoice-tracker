@@ -8,10 +8,13 @@ import { Separator } from "@/components/ui/separator"
 import { Github, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 import { useState } from "react"
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 
 export default function SignupPage() {
+
     const [isLoading, setIsLoading] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -19,7 +22,7 @@ export default function SignupPage() {
         // Simulate loading
         setTimeout(() => {
             setIsLoading(false)
-            window.location.href = "/auth/verification-sent"
+            navigate("/dashboard")
         }, 1500)
     }
 
@@ -69,7 +72,7 @@ export default function SignupPage() {
                             <path d="M8 11h.01" />
                             <path d="M8 16h.01" />
                         </svg>
-                        Virelle
+                        Unicollector
                     </Link>
                 </motion.div>
                 <motion.div
@@ -166,7 +169,7 @@ export default function SignupPage() {
                                 </label>
                             </motion.div>
                             <motion.div variants={itemVariants}>
-                                <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700" disabled={isLoading}>
+                                <Button type="submit" className="w-full" disabled={isLoading}>
                                     {isLoading ? (
                                         <div className="flex items-center">
                                             <svg

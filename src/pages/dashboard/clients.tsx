@@ -406,7 +406,7 @@ export default function ClientsPage() {
                 <DialogContent className="max-w-4xl">
                     <DialogHeader>
                         <DialogTitle>Client Profile</DialogTitle>
-                        <DialogDescription>View and manage client details, invoices, and payment history</DialogDescription>
+                        <DialogDescription className="text-black">View and manage client details, invoices, and payment history</DialogDescription>
                     </DialogHeader>
 
                     {selectedClient && (
@@ -427,7 +427,7 @@ export default function ClientsPage() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <p className="text-sm font-medium text-muted-foreground">Contact Person</p>
-                                            <p>{selectedClient.contactPerson}</p>
+                                            <p className="text-black">{selectedClient.contactPerson}</p>
                                         </div>
                                         <div className="space-y-2">
                                             <p className="text-sm font-medium text-muted-foreground">Email</p>

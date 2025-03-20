@@ -802,7 +802,7 @@ const handleUpdateInvoiceItem = (itemId: string, field: string, value: string | 
                                     <p className="text-muted-foreground">{invoice.id}</p>
                                 </div>
                                 <div className="text-right">
-                                    <div className="font-bold">Virelle Inc.</div>
+                                    <div className="font-bold">Unicollector Inc.</div>
                                     <div className="text-sm text-muted-foreground">
                                         <p>123 Company Street</p>
                                         <p>Business City, ST 12345</p>

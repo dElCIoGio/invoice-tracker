@@ -26,15 +26,13 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
   return (
     <div className="space-y-6">
-
-
       <div className="">
         <Card className="bg-zinc-100 border-zinc-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 ">
             {/*<CardTitle className="text-sm font-medium">Total Outstanding</CardTitle>*/}
             <div>
               <CardTitle className="text-3xl font-bold">Overview</CardTitle>
-              <p className="text-muted-foreground">Track your invoice statistics and cash flow</p>
+              <p className="text-zinc-500">Track your invoice statistics and cash flow</p>
             </div>
           </CardHeader>
           <CardContent className="flex flex-row items-center justify-between">
@@ -79,7 +77,10 @@ export default function Dashboard() {
                     <span className="text-red-500 flex items-center gap-1">
                       +12.5% <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  from last month
+                  <span className="text-zinc-500">
+                    from last month
+                  </span>
+
                 </p>
                 <Progress className="h-2 mt-2" value={65} />
               </CardContent>
@@ -96,7 +97,9 @@ export default function Dashboard() {
                     <span className="text-red-500 flex items-center gap-1">
                       +8.1% <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  from last month
+                  <span className="text-zinc-500">
+                    from last month
+                  </span>
                 </p>
                 <Progress
                     className="h-2 mt-2 bg-red-100"
@@ -116,7 +119,9 @@ export default function Dashboard() {
                     <span className="text-emerald-500 flex items-center gap-1">
                       +18.2% <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  from last month
+                  <span className="text-zinc-500">
+                    from last month
+                  </span>
                 </p>
                 <Progress
                     className="h-2 mt-2 bg-emerald-100"
@@ -137,7 +142,9 @@ export default function Dashboard() {
                     <span className="text-emerald-500 flex items-center gap-1">
                       +5.2% <ArrowUpRight className="h-4 w-4" />
                     </span>
-                  from last month
+                  <span className="text-zinc-500">
+                    from last month
+                  </span>
                 </p>
                 <Progress className="h-2 mt-2" value={60} />
               </CardContent>
@@ -166,7 +173,7 @@ export default function Dashboard() {
             <Card className="col-span-4">
               <CardHeader>
                 <CardTitle>Invoice Summary</CardTitle>
-                <CardDescription>Monthly comparison of issued vs. paid invoices</CardDescription>
+                <CardDescription className="text-zinc-500">Monthly comparison of issued vs. paid invoices</CardDescription>
               </CardHeader>
               <CardContent className="pl-2">
                 <InvoiceChart />
@@ -177,7 +184,7 @@ export default function Dashboard() {
             <Card className="col-span-3">
               <CardHeader>
                 <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Latest payments and upcoming due dates</CardDescription>
+                <CardDescription className="text-zinc-500">Latest payments and upcoming due dates</CardDescription>
               </CardHeader>
               <CardContent>
                 <RecentActivity />
@@ -189,7 +196,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader>
               <CardTitle>Invoices</CardTitle>
-              <CardDescription>Manage your invoices and track their status</CardDescription>
+              <CardDescription className="text-zinc-500">Manage your invoices and track their status</CardDescription>
             </CardHeader>
             <CardContent>
               <InvoiceTable />
@@ -198,37 +205,37 @@ export default function Dashboard() {
         </TabsContent>
 
         <TabsContent value="outstanding" className="space-y-4">
-          <Card>
-            <CardHeader>
+          <Card className="p-0 border-none shadow-none">
+            <CardHeader className="p-0">
               <CardTitle>Outstanding Invoices</CardTitle>
-              <CardDescription>All invoices that are pending payment</CardDescription>
+              <CardDescription className="text-zinc-400">All invoices that are pending payment</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
               <InvoiceTable status="pending" />
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="overdue" className="space-y-4">
-          <Card>
-            <CardHeader>
+          <Card className="p-0 border-none shadow-none">
+            <CardHeader className="p-0">
               <CardTitle>Overdue Invoices</CardTitle>
-              <CardDescription>All invoices that are past their due date</CardDescription>
+              <CardDescription className="text-zinc-400">All invoices that are past their due date</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
               <InvoiceTable status="overdue" />
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="paid" className="space-y-4">
-          <Card>
-            <CardHeader>
+          <Card className="p-0 border-none shadow-none">
+            <CardHeader className="p-0">
               <CardTitle>Paid Invoices</CardTitle>
               <CardDescription>All invoices that have been paid</CardDescription>
             </CardHeader>
-            <CardContent>
-              <InvoiceTable status="paid" />
+            <CardContent className="p-0">
+              <InvoiceTable status="paid"/>
             </CardContent>
           </Card>
         </TabsContent>

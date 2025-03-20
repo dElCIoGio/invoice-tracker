@@ -91,7 +91,7 @@ export default function InvoicesPage() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {/* Total Outstanding */}
                     <Card
-                        className={`cursor-pointer transition-all hover:border-primary ${activeFilter === "outstanding" ? "border-primary bg-primary/5" : ""}`}
+                        className={` cursor-pointer transition-all hover:border-primary ${activeFilter === "outstanding" ? "border-primary bg-primary/5" : ""}`}
                         onClick={() => handleCardClick("outstanding")}
                     >
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -232,17 +232,17 @@ export default function InvoicesPage() {
                     </TabsList>
 
                     <TabsContent value="all" className="space-y-4">
-                        <Card>
-                            <CardHeader>
+                        <Card className="p-0 border-none shadow-none">
+                            <CardHeader className="p-0">
                                 <CardTitle>All Invoices</CardTitle>
-                                <CardDescription>Manage and track all your invoices in one place</CardDescription>
+                                <CardDescription className="text-zinc-400">Manage and track all your invoices in one place</CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-0">
                                 <InvoicesTable filter={activeFilter} />
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className="hidden">
                             <CardHeader>
                                 <CardTitle>Invoice Performance</CardTitle>
                                 <CardDescription>Track your invoice performance over time</CardDescription>
@@ -254,48 +254,48 @@ export default function InvoicesPage() {
                     </TabsContent>
 
                     <TabsContent value="pending" className="space-y-4">
-                        <Card>
-                            <CardHeader>
+                        <Card className="p-0 shadow-none border-none">
+                            <CardHeader className="p-0">
                                 <CardTitle>Pending Invoices</CardTitle>
-                                <CardDescription>Invoices that are awaiting payment</CardDescription>
+                                <CardDescription  className="text-zinc-400">Invoices that are awaiting payment</CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-0">
                                 <InvoicesTable filter="pending" />
                             </CardContent>
                         </Card>
                     </TabsContent>
 
                     <TabsContent value="overdue" className="space-y-4">
-                        <Card>
-                            <CardHeader>
+                        <Card className="p-0 shadow-none border-none">
+                            <CardHeader className="p-0">
                                 <CardTitle>Overdue Invoices</CardTitle>
-                                <CardDescription>Invoices that are past their due date</CardDescription>
+                                <CardDescription className="text-zinc-400">Invoices that are past their due date</CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-0">
                                 <InvoicesTable filter="overdue" />
                             </CardContent>
                         </Card>
                     </TabsContent>
 
                     <TabsContent value="paid" className="space-y-4">
-                        <Card>
-                            <CardHeader>
+                        <Card className="p-0 border-none shadow-none">
+                            <CardHeader className="p-0">
                                 <CardTitle>Paid Invoices</CardTitle>
-                                <CardDescription>Invoices that have been paid in full</CardDescription>
+                                <CardDescription className="text-zinc-400">Invoices that have been paid in full</CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-0">
                                 <InvoicesTable filter="paid" />
                             </CardContent>
                         </Card>
                     </TabsContent>
 
                     <TabsContent value="draft" className="space-y-4">
-                        <Card>
-                            <CardHeader>
+                        <Card className="p-0 border-none shadow-none">
+                            <CardHeader className="p-0">
                                 <CardTitle>Draft Invoices</CardTitle>
-                                <CardDescription>Invoices that are still in draft mode</CardDescription>
+                                <CardDescription className="text-zinc-400">Invoices that are still in draft mode</CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-0">
                                 <InvoicesTable filter="draft" />
                             </CardContent>
                         </Card>

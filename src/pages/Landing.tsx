@@ -54,7 +54,7 @@ export default function Landing() {
                   <div className="relative h-[350px] w-[350px] sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]">
                     <img
                       src="/placeholder.svg?height=500&width=500"
-                      alt="Person using Virelle on mobile"
+                      alt="Person using Unicollector on mobile"
                       width={500}
                       height={500}
                       className="object-contain"
@@ -71,7 +71,7 @@ export default function Landing() {
           <div className="px-4 md:px-6 container-custom">
             <FadeIn>
               <p className="text-center text-sm font-medium text-gray-500 mb-8">
-                Industry leaders trust Virelle to grow their revenue
+                Industry leaders trust Unicollector to grow their revenue
               </p>
             </FadeIn>
             <StaggeredChildren className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-center">
@@ -218,7 +218,7 @@ export default function Landing() {
                     Our Customers' Needs
                   </h2>
                   <blockquote className="border-l-4 border-teal-500 pl-4 italic">
-                    "I have been using Virelle Solution for my business, and I must say, it has been a game-changer. The
+                    "I have been using Unicollector Solution for my business, and I must say, it has been a game-changer. The
                     automated reminders have saved me countless hours chasing payments. I'm impressed about the insight
                     and data-driven approach of this platform. It has helped me."
                   </blockquote>
@@ -362,29 +362,29 @@ export default function Landing() {
             <StaggeredChildren className="mx-auto max-w-3xl mt-8 space-y-4">
               {[
                 {
-                  question: "What is Virelle Invoice Solution?",
+                  question: "What is Unicollector Invoice Solution?",
                   answer:
-                    "Virelle is a comprehensive invoice management solution designed for businesses of all sizes. It helps you track, remind, and manage all your invoices in one place with powerful automation features.",
+                    "Unicollector is a comprehensive invoice management solution designed for businesses of all sizes. It helps you track, remind, and manage all your invoices in one place with powerful automation features.",
                 },
                 {
-                  question: "How can I save money by using Virelle?",
+                  question: "How can I save money by using Unicollector?",
                   answer:
-                    "Virelle helps you get paid faster with automated reminders, reducing late payments and improving cash flow. Our analytics also help you identify payment trends and optimize your invoicing process.",
+                    "Unicollector helps you get paid faster with automated reminders, reducing late payments and improving cash flow. Our analytics also help you identify payment trends and optimize your invoicing process.",
                 },
                 {
-                  question: "What is Virelle's API?",
+                  question: "What is Unicollector's API?",
                   answer:
-                    "Virelle's API allows you to integrate our invoice management system with your existing software stack, enabling seamless data flow and automation across your business tools.",
+                    "Unicollector's API allows you to integrate our invoice management system with your existing software stack, enabling seamless data flow and automation across your business tools.",
                 },
                 {
-                  question: "Does Virelle integrate with accounting systems?",
+                  question: "Does Unicollector integrate with accounting systems?",
                   answer:
-                    "Yes, Virelle integrates with popular accounting systems like QuickBooks, Xero, and FreshBooks, allowing for seamless data synchronization and workflow automation.",
+                    "Yes, Unicollector integrates with popular accounting systems like QuickBooks, Xero, and FreshBooks, allowing for seamless data synchronization and workflow automation.",
                 },
                 {
                   question: "How much does it cost?",
                   answer:
-                    "Virelle offers flexible pricing plans starting at $19/month for small businesses, with options for growing companies and enterprises. All plans come with a free trial period.",
+                    "Unicollector offers flexible pricing plans starting at $19/month for small businesses, with options for growing companies and enterprises. All plans come with a free trial period.",
                 },
               ].map((faq, index) => (
                 <div key={index} className="rounded-lg border p-4 transition-all duration-300 hover:shadow-md">

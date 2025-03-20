@@ -8,9 +8,12 @@ import { Separator } from "@/components/ui/separator"
 import { Github, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 import { useState } from "react"
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 
 export default function Login() {
+
+    const navigate = useNavigate();
+
     const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -19,7 +22,7 @@ export default function Login() {
         // Simulate loading
         setTimeout(() => {
             setIsLoading(false)
-            window.location.href = "/dashboard"
+            navigate("/dashboard")
         }, 1500)
     }
 
@@ -69,7 +72,7 @@ export default function Login() {
                             <path d="M8 11h.01" />
                             <path d="M8 16h.01" />
                         </svg>
-                        Invoicer
+                        Unicollector
                     </Link>
                 </motion.div>
                 <motion.div
@@ -102,6 +105,7 @@ export default function Login() {
                             </div>
                         </div>
                         <form className="space-y-4" onSubmit={handleSubmit}>
+
                             <motion.div variants={itemVariants} className="space-y-2">
                                 <label
                                     htmlFor="email"
@@ -109,7 +113,7 @@ export default function Login() {
                                 >
                                     Email
                                 </label>
-                                <Input id="email" type="email" placeholder="m@example.com" required className="w-full" />
+                                <Input id="email" type="email" placeholder="example@mail.com" required className="w-full" />
                             </motion.div>
                             <motion.div variants={itemVariants} className="space-y-2">
                                 <div className="flex items-center justify-between">
@@ -123,7 +127,7 @@ export default function Login() {
                                         Forgot password?
                                     </Link>
                                 </div>
-                                <Input id="password" type="password" placeholder="••••••••" required className="w-full" />
+                                <Input id="password" type="password" placeholder="••••••••" required className="w-full"/>
                             </motion.div>
                             <motion.div variants={itemVariants} className="flex items-center space-x-2">
                                 <Checkbox id="remember" />
@@ -135,7 +139,7 @@ export default function Login() {
                                 </label>
                             </motion.div>
                             <motion.div variants={itemVariants}>
-                                <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700" disabled={isLoading}>
+                                <Button type="submit" variant="default" className="w-full" disabled={isLoading}>
                                     {isLoading ? (
                                         <div className="flex items-center">
                                             <svg
